@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AccountTypeEnum {
+  CASH
+  INVESTMENT
+}
+
+enum TransactionTypeEnum {
+  INCOME
+  EXPENSE
+}
+
+model Users {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  accounts    Accounts[]
+  costCenters CostCenters[]
+}
+
+model Accounts {
+  id    Int             @id @default(autoincrement())
+  name  String
+  value Float
+  type  AccountTypeEnum
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  userId Int @map("id_user")
+
+  user Users @relation(fields: [userId], references: [id])
+
+  transactions Transactions[]
+}
+
+model CostCenters {
+  id              Int                 @id @default(autoincrement())
+  name            String
+  percentage      Int
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  userId Int @map("id_user")
+
+  user         Users          @relation(fields: [userId], references: [id])
+  transactions Transactions[]
+}
+
+model Transactions {
+  id              Int                 @id @default(autoincrement())
+  name            String
+  value           Float
+  transactionType TransactionTypeEnum @map("transaction_type")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  accountId    Int  @map("id_account")
+  costCenterId Int? @map("id_cost_center")
+
+  account     Accounts     @relation(fields: [accountId], references: [id])
+  costCenter CostCenters? @relation(fields: [costCenterId], references: [id])
+}
