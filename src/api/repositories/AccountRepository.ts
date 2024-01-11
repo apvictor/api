@@ -1,6 +1,7 @@
 import { NotFoundError } from "../../configs/errors/ApiError";
 import { PrismaService } from "../../shared/services/PrismaService";
-import { CreateAccountModel, UpdateAccountModel } from './../models/AccountModel';
+import { AccountModel, CreateAccountModel, UpdateAccountModel } from './../models/AccountModel';
+import { TransactionRepository } from "./TransactionRepository";
 
 export const AccountRepository = {
   async insert(account: CreateAccountModel) {
@@ -27,7 +28,7 @@ export const AccountRepository = {
   },
   async getAll(userId: number) {
     const data = await PrismaService.accounts.findMany({
-      where: { userId }
+      where: { userId },
     });
 
     if (!data) throw new NotFoundError();

@@ -5,7 +5,6 @@ import { AccountRepository } from "../../repositories/AccountRepository";
 import { UserAuthRequest } from "../../../configs/requests/UserAuthRequest";
 import { CostCenterRepository } from "../../repositories/CostCenterRepository";
 import { TransactionRepository } from "../../repositories/TransactionRepository";
-import { updateValueAccount } from "../../../configs/helpers/updateValueAccount";
 
 type GroupedTransaction = {
   [key: string]: TransactionModel[];
@@ -17,10 +16,6 @@ export const TransactionController = {
 
     const costCenter = transactionData.costCenterId ? (await CostCenterRepository.getById(transactionData.costCenterId)).id : null;
     const account = await AccountRepository.getById(transactionData.accountId);
-
-    const newValue = updateValueAccount(account, transactionData);
-
-    await AccountRepository.update(account.id, { ...account, value: newValue });
 
     const data = await TransactionRepository.insert({
       ...transactionData,

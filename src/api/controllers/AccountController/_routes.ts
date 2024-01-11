@@ -7,5 +7,4 @@ import { Validate } from "../../../shared/middlewares/Validate";
 export const accountRoutes = Router();
 
 accountRoutes.get("/accounts", UserAuth, AccountController.getAccounts);
-accountRoutes.get("/accounts/total", UserAuth, AccountController.getTotal);
 accountRoutes.post("/accounts", UserAuth, Validate(AccountValidation.create), AccountController.create);

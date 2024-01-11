@@ -1,14 +1,12 @@
 {
-  "name": "api",
+  "name": "pigpay-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf ./dist && tsc",
-    "postinstall": "rm -rf ./dist && tsc",
     "dev": "nodemon src/index.ts",
-    "start": "ts-node src/index.ts",
-    "production": "node ./dist/index.js"
+    "prod": "node ./dist/index.js",
+    "postinstall": "rm -rf ./dist && tsc"
   },
   "keywords": [],
   "author": "",

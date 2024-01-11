@@ -41,5 +41,25 @@ export const TransactionRepository = {
 
     return value ?? 0;
   },
+  async getTotalByAccountId(accountId: number, transactionType: "EXPENSE" | "INCOME") {
+    const date = new Date();
+    const startMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+    const endMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+    const { _sum: { value } } = await PrismaService.transactions.aggregate({
+      _sum: { value: true },
+      where: {
+        accountId,
+        transactionType,
+        createdAt: {
+          gte: startMonth,
+          lte: endMonth,
+        }
+      },
+    });
+
+    return value ?? 0;
+  },
+
 
 }
