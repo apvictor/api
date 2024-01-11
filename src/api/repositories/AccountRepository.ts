@@ -1,5 +1,5 @@
-import { PrismaService } from "../services/PrismaService"
 import { NotFoundError } from "../../configs/errors/ApiError";
+import { PrismaService } from "../../shared/services/PrismaService";
 import { CreateAccountModel, UpdateAccountModel } from './../models/AccountModel';
 
 export const AccountRepository = {

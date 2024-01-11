@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { CostCenterController } from ".";
-import { Validate } from "../../../middlewares/Validate";
-import { UserAuth } from "../../../middlewares/UserAuth";
 import { CostCenterValidation } from "../../validations/CostCenterValidation";
+import { UserAuth } from "../../../shared/middlewares/UserAuth";
+import { Validate } from "../../../shared/middlewares/Validate";
 
 export const costCenterRoutes = Router();
 

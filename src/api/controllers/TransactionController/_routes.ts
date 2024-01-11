@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { TransactionController } from ".";
-import { UserAuth } from "../../../middlewares/UserAuth";
-import { Validate } from "../../../middlewares/Validate";
 import { TransactionValidation } from "../../validations/TransactionValidation";
+import { UserAuth } from "../../../shared/middlewares/UserAuth";
+import { Validate } from "../../../shared/middlewares/Validate";
 
 export const transactionRoutes = Router();
 

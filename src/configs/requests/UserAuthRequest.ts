@@ -7,5 +7,4 @@ export interface UserAuthRequest extends Request {
     transactionType?: "INCOME" | "EXPENSE",
     search?: string
   }
-
 }

@@ -1,4 +1,4 @@
-import { PrismaService } from "../services/PrismaService"
+import { PrismaService } from '../../shared/services/PrismaService';
 import { CreateTransactionModel } from './../models/TransactionModel';
 
 export const TransactionRepository = {

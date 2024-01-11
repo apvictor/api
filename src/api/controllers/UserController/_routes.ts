@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { UserController } from ".";
-import { UserAuth } from "../../../middlewares/UserAuth";
+import { UserAuth } from "../../../shared/middlewares/UserAuth";
 
 export const userRoutes = Router();
 

@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(cors({ origin: "*" }))
 
 app.get("/", (req, res) => {
-  res.json("Express on Vercel");
+  return res.send('Olá, DEV!');
 });
 
 app.use(api);

@@ -1,5 +1,5 @@
-import { PrismaService } from "../services/PrismaService";
 import { NotFoundError } from "../../configs/errors/ApiError";
+import { PrismaService } from "../../shared/services/PrismaService";
 import { CostCenterModel, CreateCostCenterModel } from './../models/CostCenterModel';
 
 export const CostCenterRepository = {

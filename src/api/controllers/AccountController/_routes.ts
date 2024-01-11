@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { AccountController } from ".";
-import { Validate } from "../../../middlewares/Validate";
-import { UserAuth } from "../../../middlewares/UserAuth";
 import { AccountValidation } from "../../validations/AccountValidation";
+import { UserAuth } from "../../../shared/middlewares/UserAuth";
+import { Validate } from "../../../shared/middlewares/Validate";
 
 export const accountRoutes = Router();
 
