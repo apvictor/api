@@ -34,7 +34,7 @@ export const AccountRepository = {
 
     return data;
   },
-  async getTotalMonth(userId: number, type: "CASH" | "INVESTMENT") {
+  async getTotalMonth(userId: number) {
     const date = new Date();
     const startMonth = new Date(date.getFullYear(), date.getMonth(), 1);
     const endMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
@@ -42,7 +42,6 @@ export const AccountRepository = {
     const { _sum: { value } } = await PrismaService.accounts.aggregate({
       where: {
         userId,
-        type,
         createdAt: {
           gte: startMonth,
           lte: endMonth,

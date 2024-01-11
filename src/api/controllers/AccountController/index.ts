@@ -16,10 +16,9 @@ export const AccountController = {
   getTotal: MapErrors(async (request: UserAuthRequest, response: Response) => {
     const user = request.userAuth
 
-    const total = await AccountRepository.getTotalMonth(user.id, "CASH");
-    const totalInvestment = await AccountRepository.getTotalMonth(user.id, "INVESTMENT");
+    const total = await AccountRepository.getTotalMonth(user.id);
 
-    return response.json({ total, totalInvestment });
+    return response.json({ total });
   }),
   getAccounts: MapErrors(async (request: UserAuthRequest, response: Response) => {
     const user = request.userAuth

@@ -1,16 +1,10 @@
 generator client {
   provider = "prisma-client-js"
-  binaryTargets = ["native", "rhel-openssl-1.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-enum AccountTypeEnum {
-  CASH
-  INVESTMENT
 }
 
 enum TransactionTypeEnum {
@@ -32,10 +26,9 @@ model Users {
 }
 
 model Accounts {
-  id    Int             @id @default(autoincrement())
+  id    Int    @id @default(autoincrement())
   name  String
   value Float
-  type  AccountTypeEnum
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
@@ -49,9 +42,9 @@ model Accounts {
 }
 
 model CostCenters {
-  id              Int                 @id @default(autoincrement())
-  name            String
-  percentage      Int
+  id         Int    @id @default(autoincrement())
+  name       String
+  percentage Int
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
@@ -59,7 +52,8 @@ model CostCenters {
 
   userId Int @map("id_user")
 
-  user         Users          @relation(fields: [userId], references: [id])
+  user Users @relation(fields: [userId], references: [id])
+
   transactions Transactions[]
 }
 
@@ -76,6 +70,6 @@ model Transactions {
   accountId    Int  @map("id_account")
   costCenterId Int? @map("id_cost_center")
 
-  account     Accounts     @relation(fields: [accountId], references: [id])
+  account    Accounts     @relation(fields: [accountId], references: [id])
   costCenter CostCenters? @relation(fields: [costCenterId], references: [id])
 }
