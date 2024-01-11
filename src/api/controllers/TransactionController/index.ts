@@ -36,7 +36,7 @@ export const TransactionController = {
 
     const transactions = await TransactionRepository.getAll(user.id, search);
 
-    const groupedTransactions = transactions.reduce((result, transaction) => {
+    const groupedTransactions = transactions.reduce((result: any, transaction: TransactionModel) => {
 
       const dateKey = transaction.createdAt.toLocaleDateString('pt-BR', {
         day: '2-digit',
