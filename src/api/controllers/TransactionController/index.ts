@@ -1,16 +1,37 @@
 import { Response } from "express"
 import { MapErrors } from "../../../configs/errors/MapErrors";
-import { CreateTransactionModel, TransactionModel } from "../../models/TransactionModel";
 import { AccountRepository } from "../../repositories/AccountRepository";
 import { UserAuthRequest } from "../../../configs/requests/UserAuthRequest";
 import { CostCenterRepository } from "../../repositories/CostCenterRepository";
 import { TransactionRepository } from "../../repositories/TransactionRepository";
+import { CreateTransactionModel, TransactionModel } from "../../models/TransactionModel";
 
 type GroupedTransaction = {
   [key: string]: TransactionModel[];
 };
-
 export const TransactionController = {
+  delete: MapErrors(async (request: UserAuthRequest, response: Response) => {
+    const id = request.params.id
+
+    const data = await TransactionRepository.delete(parseInt(id));
+
+    return response.json(data);
+  }),
+  edit: MapErrors(async (request: UserAuthRequest, response: Response) => {
+    const transactionData: CreateTransactionModel = request.body
+    const id = request.params.id
+
+    const costCenter = transactionData.costCenterId ? (await CostCenterRepository.getById(transactionData.costCenterId)).id : null;
+    const account = await AccountRepository.getById(transactionData.accountId);
+
+    const data = await TransactionRepository.update(parseInt(id), {
+      ...transactionData,
+      costCenterId: costCenter,
+      accountId: account.id
+    });
+
+    return response.json(data);
+  }),
   create: MapErrors(async (request: UserAuthRequest, response: Response) => {
     const transactionData: CreateTransactionModel = request.body
 
@@ -28,8 +49,9 @@ export const TransactionController = {
   getTransactions: MapErrors(async (request: UserAuthRequest, response: Response) => {
     const user = request.userAuth;
     const search = request.query.search;
+    const transactionType = request.query.transactionType;
 
-    const transactions = await TransactionRepository.getAll(user.id, search);
+    const transactions = await TransactionRepository.getAll(user.id, search, transactionType);
 
     const groupedTransactions = transactions.reduce((result: any, transaction: TransactionModel) => {
 

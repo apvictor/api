@@ -1,11 +1,27 @@
 import { Response } from "express"
 import { MapErrors } from "../../../configs/errors/MapErrors";
-import { AccountModel, CreateAccountModel } from "../../models/AccountModel";
 import { AccountRepository } from "../../repositories/AccountRepository";
 import { UserAuthRequest } from "../../../configs/requests/UserAuthRequest";
 import { TransactionRepository } from "../../repositories/TransactionRepository";
+import { AccountModel, CreateAccountModel, UpdateAccountModel } from "../../models/AccountModel";
 
 export const AccountController = {
+  delete: MapErrors(async (request: UserAuthRequest, response: Response) => {
+    const id = request.params.id;
+
+    const data = await AccountRepository.delete(parseInt(id));
+
+    return response.json(data);
+  }),
+  edit: MapErrors(async (request: UserAuthRequest, response: Response) => {
+    const id = request.params.id
+
+    const accountData: UpdateAccountModel = request.body;
+
+    const data = await AccountRepository.update(parseInt(id), { ...accountData });
+
+    return response.json(data);
+  }),
   create: MapErrors(async (request: UserAuthRequest, response: Response) => {
     const user = request.userAuth
     const accountData: CreateAccountModel = request.body;
@@ -30,8 +46,6 @@ export const AccountController = {
       item.expenseTotal = await TransactionRepository.getTotalByAccountId(item.id, "EXPENSE");
       item.incomeTotal = await TransactionRepository.getTotalByAccountId(item.id, "INCOME");
     }));
-
-    console.log(data);
 
     return response.json(data);
   }),

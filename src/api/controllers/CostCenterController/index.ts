@@ -7,6 +7,29 @@ import { CostCenterRepository } from "../../repositories/CostCenterRepository";
 import { CostCenterModel, CreateCostCenterModel } from "../../models/CostCenterModel";
 
 export const CostCenterController = {
+  delete: MapErrors(async (request: UserAuthRequest, response: Response) => {
+    const id = request.params.id;
+
+    const data = await CostCenterRepository.delete(parseInt(id));
+
+    return response.json(data);
+  }),
+  edit: MapErrors(async (request: UserAuthRequest, response: Response) => {
+    const id = request.params.id;
+    const user = request.userAuth;
+
+    const costCenterData: CreateCostCenterModel = request.body;
+
+    const costCenter = await CostCenterRepository.getById(parseInt(id));
+
+    const percentageTotal = await CostCenterRepository.getTotalPercentage(user.id);
+
+    if (((percentageTotal + costCenterData.percentage) - costCenter.percentage) > 100) throw new ApiError(400, ERROR_COST_CENTER_MESSAGE)
+
+    const data = await CostCenterRepository.update(parseInt(id), { ...costCenterData });
+
+    return response.json(data);
+  }),
   create: MapErrors(async (request: UserAuthRequest, response: Response) => {
     const user = request.userAuth;
 

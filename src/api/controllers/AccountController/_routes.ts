@@ -8,3 +8,5 @@ export const accountRoutes = Router();
 
 accountRoutes.get("/accounts", UserAuth, AccountController.getAccounts);
 accountRoutes.post("/accounts", UserAuth, Validate(AccountValidation.create), AccountController.create);
+accountRoutes.put("/accounts/:id", UserAuth, Validate(AccountValidation.edit), AccountController.edit);
+accountRoutes.delete("/accounts/:id", UserAuth, Validate(AccountValidation.delete), AccountController.delete);

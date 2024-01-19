@@ -15,3 +15,7 @@ export interface CreateCostCenterModel {
   percentage: number;
   userId: number
 }
+export interface UpdateCostCenterModel {
+  name: string;
+  percentage: number;
+}

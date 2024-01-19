@@ -9,3 +9,5 @@ export const transactionRoutes = Router();
 transactionRoutes.get("/transactions", UserAuth, TransactionController.getTransactions);
 transactionRoutes.get("/transactions/total", UserAuth, TransactionController.getTransactionsTotal);
 transactionRoutes.post("/transactions", UserAuth, Validate(TransactionValidation.create), TransactionController.create);
+transactionRoutes.put("/transactions/:id", UserAuth, Validate(TransactionValidation.edit), TransactionController.edit);
+transactionRoutes.delete("/transactions/:id", UserAuth, Validate(TransactionValidation.delete), TransactionController.delete);

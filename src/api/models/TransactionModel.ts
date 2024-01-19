@@ -16,3 +16,11 @@ export interface CreateTransactionModel {
   costCenterId: number | null;
   transactionType: "INCOME" | "EXPENSE";
 }
+
+export interface UpdateTransactionModel {
+  name: string;
+  value: number;
+  accountId: number;
+  costCenterId: number | null;
+  transactionType: "INCOME" | "EXPENSE";
+}
