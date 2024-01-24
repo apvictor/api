@@ -8,21 +8,17 @@ export class ErrorHandler {
     return (error: ApiError, request: Request, response: Response, next: NextFunction) => {
       const status = error.status || 500;
 
-      // if (process.env.SERVER_ENV == "prod" &&
-      //   error instanceof Prisma.PrismaClientInitializationError ||
-      //   error instanceof Prisma.PrismaClientKnownRequestError ||
-      //   error instanceof Prisma.PrismaClientRustPanicError ||
-      //   error instanceof Prisma.PrismaClientUnknownRequestError ||
-      //   error instanceof Prisma.PrismaClientValidationError
-      // ) {
-      //   return response.status(500).json({
-      //     error: ERROR_500_MESSAGE
-      //   });
-      // }
-
-      if (error.field) {
-        return response.status(status).json({ field: error.field, error: error.message, });
+      if (process.env.SERVER_ENV == "prod" &&
+        error instanceof Prisma.PrismaClientInitializationError ||
+        error instanceof Prisma.PrismaClientKnownRequestError ||
+        error instanceof Prisma.PrismaClientRustPanicError ||
+        error instanceof Prisma.PrismaClientUnknownRequestError ||
+        error instanceof Prisma.PrismaClientValidationError
+      ) {
+        return response.status(500).json({ error: ERROR_500_MESSAGE });
       }
+
+      if (error.field) return response.status(status).json({ field: error.field, error: error.message });
 
       return response.status(status).json({ error: error.message });
     };

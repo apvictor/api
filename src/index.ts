@@ -1,7 +1,9 @@
 import "dotenv/config";
 import cors from "cors";
-import express from "express";
+import { serve, setup } from "swagger-ui-express";
+import express, { Request, Response } from "express";
 import { ErrorHandler } from "./configs/errors/ErrorHandler";
+import swaggerFile from "./configs/swagger/swagger_output.json";
 
 import { api } from "./routes/api";
 
@@ -12,9 +14,11 @@ const port = process.env.SERVER_PORT || 3000
 app.use(express.json())
 app.use(cors({ origin: "*" }))
 
-app.get("/", (req, res) => {
-  return res.send('Olá, DEV!');
+app.get("/", (request: Request, response: Response) => {
+  return response.redirect("/swagger");
 });
+
+app.use("/swagger", serve, setup(swaggerFile));
 
 app.use(api);
 
