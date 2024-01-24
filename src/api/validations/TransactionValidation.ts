@@ -1,9 +1,10 @@
-import { object, string, number } from 'yup';
+import { TransactionTypeEnum } from '@prisma/client';
+import { object, string, number, mixed } from 'yup';
 
-const TransactionTypeEnum = {
-  INCOME: "INCOME",
-  EXPENSE: "EXPENSE"
-}
+// const TransactionTypeEnum = {
+//   INCOME: "INCOME",
+//   EXPENSE: "EXPENSE"
+// }
 export const TransactionValidation = {
   create: object({
     body: object({

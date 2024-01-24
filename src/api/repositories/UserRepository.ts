@@ -1,8 +1,8 @@
 import { UserDTO } from "../models/UserModel"
 import { CreateUserModel } from './../models/UserModel';
 import { ERROR_USER_EXIST_MESSAGE } from "../../configs/constants";
-import { ApiError, NotFoundError } from "../../configs/errors/ApiError";
 import { PrismaService } from "../../shared/services/PrismaService";
+import { ApiError, NotFoundError } from "../../configs/errors/ApiError";
 
 export const UserRepository = {
   async insert(user: CreateUserModel) {

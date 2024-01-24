@@ -17,6 +17,14 @@ const doc = {
   schemes: ['http'],
   consumes: ['application/json'],
   produces: ['application/json'],
+  securityDefinitions: {
+    apiKeyAuth: {
+      type: 'apiKey',
+      in: 'header', // can be 'header', 'query' or 'cookie'
+      name: 'authorization', // name of the header, query parameter or cookie
+      description: 'Token Authorization'
+    }
+  }
 }
 
 swaggerAutogen({ language: 'pt-BR' })(outputFile, endpointsFiles, doc)

@@ -4,8 +4,18 @@ import { UserAuthRequest } from "../../../configs/requests/UserAuthRequest";
 import { CostCenterRepository } from "../../repositories/CostCenterRepository";
 
 export const destroy = MapErrors(async (request: UserAuthRequest, response: Response) => {
-  // #swagger.tags = ['Centro de Custo']
-  // #swagger.summary = 'Deletar centro de custo'
+  /*
+    #swagger.tags = ['Centro de Custo']
+    #swagger.summary = 'Deletar centro de custo'
+
+    #swagger.security = [{"apiKeyAuth": []}]
+
+    #swagger.parameters['id'] = {
+      in: 'path',
+      required: true,
+      type: 'integer'
+    }
+  */
 
   const id = request.params.id;
 

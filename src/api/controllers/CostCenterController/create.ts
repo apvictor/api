@@ -7,8 +7,21 @@ import { UserAuthRequest } from "../../../configs/requests/UserAuthRequest";
 import { CostCenterRepository } from "../../repositories/CostCenterRepository";
 
 export const create = MapErrors(async (request: UserAuthRequest, response: Response) => {
-  // #swagger.tags = ['Centro de Custo']
-  // #swagger.summary = 'Criar centro de custo'
+  /*
+    #swagger.tags = ['Centro de Custo']
+    #swagger.summary = 'Criar centro de custo'
+
+    #swagger.security = [{"apiKeyAuth": []}]
+
+    #swagger.parameters['body'] = {
+      in: 'body',
+      required: true,
+      schema: {
+        name: "Casa",
+        percentage: 50
+      }
+    }
+  */
 
   const user = request.userAuth;
 

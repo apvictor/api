@@ -8,8 +8,19 @@ import { UserRepository } from "../../repositories/UserRepository";
 import { ERROR_USER_EMAIL_PASS } from "../../../configs/constants";
 
 export const login = MapErrors(async (request: Request, response: Response) => {
-  // #swagger.tags = ['Usuário']
-  // #swagger.summary = 'Fazer login'
+  /*
+    #swagger.tags = ['Autenticação']
+    #swagger.summary = 'Fazer login'
+
+    #swagger.parameters['body'] = {
+      in: 'body',
+      required: true,
+      schema: {
+        email: "a@gmail.com",
+        password: "12345678",
+      }
+    }
+  */
 
   const { email, password } = request.body;
 

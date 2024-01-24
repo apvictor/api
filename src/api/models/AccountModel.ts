@@ -1,5 +1,3 @@
-import { TransactionModel } from "./TransactionModel";
-
 export interface AccountModel {
   id: number;
   name: string;

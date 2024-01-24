@@ -13,6 +13,14 @@
   "schemes": [
     "http"
   ],
+  "securityDefinitions": {
+    "apiKeyAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "authorization",
+      "description": "Token Authorization"
+    }
+  },
   "consumes": [
     "application/json"
   ],
@@ -23,7 +31,7 @@
     "/register": {
       "post": {
         "tags": [
-          "Usuário"
+          "Autenticação"
         ],
         "summary": "Fazer cadastro",
         "description": "",
@@ -31,11 +39,21 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Armando Pereira"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "a@gmail.com"
+                },
                 "password": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "12345678"
                 }
               }
             }
@@ -54,7 +72,7 @@
     "/login": {
       "post": {
         "tags": [
-          "Usuário"
+          "Autenticação"
         ],
         "summary": "Fazer login",
         "description": "",
@@ -62,14 +80,17 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "a@gmail.com"
                 },
                 "password": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "12345678"
                 }
               }
             }
@@ -92,18 +113,60 @@
         ],
         "summary": "Listar contas",
         "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
         "responses": {
           "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Nubank"
+                },
+                "value": {
+                  "type": "number",
+                  "example": 100
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2024-01-24T18:57:20.748Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2024-01-24T18:57:20.748Z"
+                },
+                "deletedAt": {
+                  "type": "string",
+                  "example": ""
+                },
+                "userId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "expenseTotal": {
+                  "type": "number",
+                  "example": 0
+                },
+                "incomeTotal": {
+                  "type": "number",
+                  "example": 0
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -113,19 +176,34 @@
         "description": "",
         "parameters": [
           {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Nubank"
+                },
+                "value": {
+                  "type": "number",
+                  "example": 100
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Solicitação Inválida"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/accounts/{id}": {
@@ -140,50 +218,62 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer"
           },
           {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Nubank"
+                },
+                "value": {
+                  "type": "number",
+                  "example": 100
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Solicitação Inválida"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       },
       "delete": {
         "tags": [
           "Conta"
         ],
-        "summary": "Delete conta",
+        "summary": "Deletar conta",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
+            "type": "integer"
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Solicitação Inválida"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/cost-centers": {
@@ -195,21 +285,74 @@
         "description": "",
         "parameters": [
           {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
             "name": "transactionType",
             "in": "query",
-            "type": "string"
+            "schema": {
+              "type": "string",
+              "enum": [
+                "INCOME",
+                "EXPENSE"
+              ]
+            }
           }
         ],
         "responses": {
           "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "value": {
+                  "type": "number",
+                  "example": 10
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Casa"
+                },
+                "percentage": {
+                  "type": "number",
+                  "example": 50
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2024-01-24T18:57:20.748Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2024-01-24T18:57:20.748Z"
+                },
+                "deletedAt": {
+                  "type": "string",
+                  "example": ""
+                },
+                "userId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "transactions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {}
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -219,31 +362,34 @@
         "description": "",
         "parameters": [
           {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Casa"
+                },
                 "percentage": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 50
                 }
               }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Solicitação Inválida"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/cost-centers/{id}": {
@@ -258,34 +404,37 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Casa"
+                },
                 "percentage": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 50
                 }
               }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Solicitação Inválida"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -298,22 +447,19 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
+            "type": "integer"
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Solicitação Inválida"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/users/me": {
@@ -323,18 +469,44 @@
         ],
         "summary": "Obter   usuário",
         "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
         "responses": {
           "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Armando Pereira"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "a@gmail.com"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2024-01-24T18:57:20.748Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2024-01-24T18:57:20.748Z"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/users": {
@@ -342,13 +514,49 @@
         "tags": [
           "Usuário"
         ],
-        "summary": "Listar usuários",
+        "summary": "Obter meu usuário",
         "description": "",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Armando Pereira"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "a@gmail.com"
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "example": "2024-01-24T18:57:20.748Z"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "example": "2024-01-24T18:57:20.748Z"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/transactions": {
@@ -358,28 +566,66 @@
         ],
         "summary": "Listar transações",
         "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "search",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "transactionType",
-            "in": "query",
-            "type": "string"
-          }
-        ],
         "responses": {
           "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "value": {
+                    "type": "number",
+                    "example": 10
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Casa"
+                  },
+                  "percentage": {
+                    "type": "number",
+                    "example": 50
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "example": "2024-01-24T18:57:20.748Z"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "example": "2024-01-24T18:57:20.748Z"
+                  },
+                  "deletedAt": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "userId": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "transactions": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -387,36 +633,44 @@
         ],
         "summary": "Criar transação",
         "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
+        "responses": {
+          "200": {
             "schema": {
               "type": "object",
               "properties": {
-                "costCenterId": {
-                  "example": "any"
+                "name": {
+                  "type": "string",
+                  "example": "Aluguel"
+                },
+                "value": {
+                  "type": "number",
+                  "example": 100
                 },
                 "accountId": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 1
+                },
+                "costCenterId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "transactionType": {
+                  "type": "string",
+                  "example": "EXPENSE"
                 }
+              },
+              "xml": {
+                "name": "main"
               }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
+            },
             "description": "OK"
-          },
-          "400": {
-            "description": "Solicitação Inválida"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/transactions/total": {
@@ -426,18 +680,32 @@
         ],
         "summary": "Listar total da entrada e saída",
         "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
         "responses": {
           "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "expense": {
+                  "type": "number",
+                  "example": 90
+                },
+                "income": {
+                  "type": "number",
+                  "example": 100
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/transactions/{id}": {
@@ -452,37 +720,47 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "costCenterId": {
-                  "example": "any"
-                },
-                "accountId": {
-                  "example": "any"
-                }
-              }
-            }
+            "type": "integer"
           }
         ],
         "responses": {
           "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Aluguel"
+                },
+                "value": {
+                  "type": "number",
+                  "example": 90
+                },
+                "accountId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "costCenterId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "transactionType": {
+                  "type": "string",
+                  "example": "EXPENSE"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
             "description": "OK"
-          },
-          "400": {
-            "description": "Solicitação Inválida"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -495,22 +773,19 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
+            "type": "integer"
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Solicitação Inválida"
+          "default": {
+            "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     }
   }

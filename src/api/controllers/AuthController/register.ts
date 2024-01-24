@@ -5,8 +5,20 @@ import { MapErrors } from "../../../configs/errors/MapErrors";
 import { UserRepository } from "../../repositories/UserRepository";
 
 export const register = MapErrors(async (request: Request, response: Response) => {
-  // #swagger.tags = ['Usuário']
-  // #swagger.summary = 'Fazer cadastro'
+  /*
+    #swagger.tags = ['Autenticação']
+    #swagger.summary = 'Fazer cadastro'
+
+    #swagger.parameters['body'] = {
+      in: 'body',
+      required: true,
+      schema: {
+        name: "Armando Pereira",
+        email: "a@gmail.com",
+        password: "12345678",
+      }
+    }
+  */
 
   const userData: CreateUserModel = request.body;
 

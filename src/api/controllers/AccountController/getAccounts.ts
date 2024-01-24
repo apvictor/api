@@ -6,8 +6,26 @@ import { UserAuthRequest } from "../../../configs/requests/UserAuthRequest";
 import { TransactionRepository } from "../../repositories/TransactionRepository";
 
 export const getAccounts = MapErrors(async (request: UserAuthRequest, response: Response) => {
-  // #swagger.tags = ['Conta']
-  // #swagger.summary = 'Listar contas'
+  /*
+    #swagger.tags = ['Conta']
+    #swagger.summary = 'Listar contas'
+
+    #swagger.security = [{"apiKeyAuth": []}]
+
+    #swagger.responses[200] = {
+      schema: {
+        "id": 1,
+        "name": "Nubank",
+        "value": 100,
+        "createdAt": "2024-01-24T18:57:20.748Z",
+        "updatedAt": "2024-01-24T18:57:20.748Z",
+        "deletedAt": "",
+        "userId": 1,
+        "expenseTotal": 0,
+        "incomeTotal": 0
+      }
+    }
+  */
 
   const user = request.userAuth
 

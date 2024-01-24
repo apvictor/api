@@ -5,8 +5,27 @@ import { AccountRepository } from "../../repositories/AccountRepository";
 import { UserAuthRequest } from "../../../configs/requests/UserAuthRequest";
 
 export const edit = MapErrors(async (request: UserAuthRequest, response: Response) => {
-  // #swagger.tags = ['Conta']
-  // #swagger.summary = 'Editar conta'
+  /*
+    #swagger.tags = ['Conta']
+    #swagger.summary = 'Editar conta'
+
+    #swagger.security = [{"apiKeyAuth": []}]
+
+    #swagger.parameters['id'] = {
+      in: 'path',
+      required: true,
+      type: 'integer'
+    }
+
+    #swagger.parameters['body'] = {
+      in: 'body',
+      required: true,
+      schema: {
+        name: "Nubank",
+        value: 100
+      }
+    }
+  */
 
   const id = request.params.id
 
