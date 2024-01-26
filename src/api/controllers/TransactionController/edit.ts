@@ -7,8 +7,31 @@ import { CostCenterRepository } from "../../repositories/CostCenterRepository";
 import { TransactionRepository } from "../../repositories/TransactionRepository";
 
 export const edit = MapErrors(async (request: UserAuthRequest, response: Response) => {
-  // #swagger.tags = ['Transação']
-  // #swagger.summary = 'Editar transação'
+  /*
+    #swagger.tags = ['Transação']
+    #swagger.summary = 'Editar transação'
+
+    #swagger.security = [{"apiKeyAuth": []}]
+
+    #swagger.parameters['id'] = {
+      in: 'path',
+      required: true,
+      type: 'integer'
+    }
+
+    #swagger.parameters['body'] = {
+      in: 'body',
+      required: true,
+      schema: {
+        name: "Aluguel",
+        value: 500,
+        accountId: 1,
+        costCenterId: 1,
+        transactionType: "EXPENSE"
+      }
+    }
+  */
+
 
   const transactionData: CreateTransactionModel = request.body
   const id = request.params.id

@@ -3,7 +3,7 @@ import swaggerAutogen from 'swagger-autogen'
 const outputFile = '../swagger/swagger_output.json'
 const endpointsFiles = ['../../routes/api']
 
-const port = process.env.SERVER_PORT || 3000
+const port = process.env.SERVER_PORT || 8000
 
 const doc = {
   info: {

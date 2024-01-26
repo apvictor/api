@@ -7,18 +7,34 @@ import { CostCenterRepository } from "../../repositories/CostCenterRepository";
 import { TransactionRepository } from "../../repositories/TransactionRepository";
 
 export const create = MapErrors(async (request: UserAuthRequest, response: Response) => {
-  // #swagger.tags = ['Transação']
-  // #swagger.summary = 'Criar transação'
+  /*
+    #swagger.tags = ['Transação']
+    #swagger.summary = 'Criar transação'
+
+    #swagger.security = [{"apiKeyAuth": []}]
+
+    #swagger.parameters['body'] = {
+      in: 'body',
+      required: true,
+      schema: {
+        name: "Aluguel",
+        value: 500,
+        accountId: 1,
+        costCenterId: 1,
+        transactionType: "EXPENSE"
+      }
+    }
+  */
 
   const transactionData: CreateTransactionModel = request.body
 
-  const costCenter = transactionData.costCenterId ? (await CostCenterRepository.getById(transactionData.costCenterId)).id : null;
-  const account = await AccountRepository.getById(transactionData.accountId);
+  const costCenterId = transactionData.costCenterId ? (await CostCenterRepository.getById(transactionData.costCenterId)).id : null;
+  const accountId = (await AccountRepository.getById(transactionData.accountId)).id;
 
   const data = await TransactionRepository.insert({
     ...transactionData,
-    costCenterId: costCenter,
-    accountId: account.id
+    costCenterId,
+    accountId
   });
 
   return response.json(data);

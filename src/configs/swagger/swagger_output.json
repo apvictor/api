@@ -8,7 +8,7 @@
       "name": "Armando Pereira"
     }
   },
-  "host": "localhost:3000",
+  "host": "localhost:8000",
   "basePath": "/",
   "schemes": [
     "http"
@@ -564,7 +564,7 @@
         "tags": [
           "Transação"
         ],
-        "summary": "Listar transações",
+        "summary": "Listar transação",
         "description": "",
         "responses": {
           "200": {
@@ -574,42 +574,108 @@
                 "type": "object",
                 "properties": {
                   "date": {
-                    "type": "number",
-                    "example": 1
-                  },
-                  "value": {
-                    "type": "number",
-                    "example": 10
-                  },
-                  "name": {
                     "type": "string",
-                    "example": "Casa"
-                  },
-                  "percentage": {
-                    "type": "number",
-                    "example": 50
-                  },
-                  "createdAt": {
-                    "type": "string",
-                    "example": "2024-01-24T18:57:20.748Z"
-                  },
-                  "updatedAt": {
-                    "type": "string",
-                    "example": "2024-01-24T18:57:20.748Z"
-                  },
-                  "deletedAt": {
-                    "type": "string",
-                    "example": ""
-                  },
-                  "userId": {
-                    "type": "number",
-                    "example": 1
+                    "example": "26/01/2024"
                   },
                   "transactions": {
                     "type": "array",
                     "items": {
                       "type": "object",
-                      "properties": {}
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "example": 7
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Aluguel"
+                        },
+                        "value": {
+                          "type": "number",
+                          "example": 500
+                        },
+                        "transactionType": {
+                          "type": "string",
+                          "example": "EXPENSE"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2024-01-26T12:09:30.684Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2024-01-26T12:09:30.684Z"
+                        },
+                        "deletedAt": {},
+                        "accountId": {
+                          "type": "number",
+                          "example": 8
+                        },
+                        "costCenterId": {
+                          "type": "number",
+                          "example": 2
+                        },
+                        "account": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number",
+                              "example": 8
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "Nubank"
+                            },
+                            "value": {
+                              "type": "number",
+                              "example": 1000
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "example": "2024-01-26T11:55:19.729Z"
+                            },
+                            "updatedAt": {
+                              "type": "string",
+                              "example": "2024-01-26T12:09:03.773Z"
+                            },
+                            "deletedAt": {},
+                            "userId": {
+                              "type": "number",
+                              "example": 2
+                            }
+                          }
+                        },
+                        "costCenter": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number",
+                              "example": 2
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "Casa"
+                            },
+                            "percentage": {
+                              "type": "number",
+                              "example": 50
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "example": "2024-01-26T11:53:38.340Z"
+                            },
+                            "updatedAt": {
+                              "type": "string",
+                              "example": "2024-01-26T11:53:38.340Z"
+                            },
+                            "deletedAt": {},
+                            "userId": {
+                              "type": "number",
+                              "example": 2
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -633,8 +699,11 @@
         ],
         "summary": "Criar transação",
         "description": "",
-        "responses": {
-          "200": {
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
@@ -644,7 +713,7 @@
                 },
                 "value": {
                   "type": "number",
-                  "example": 100
+                  "example": 500
                 },
                 "accountId": {
                   "type": "number",
@@ -658,12 +727,13 @@
                   "type": "string",
                   "example": "EXPENSE"
                 }
-              },
-              "xml": {
-                "name": "main"
               }
-            },
-            "description": "OK"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
           }
         },
         "security": [
@@ -687,11 +757,11 @@
               "properties": {
                 "expense": {
                   "type": "number",
-                  "example": 90
+                  "example": 0
                 },
                 "income": {
                   "type": "number",
-                  "example": 100
+                  "example": 0
                 }
               },
               "xml": {
@@ -721,10 +791,11 @@
             "in": "path",
             "required": true,
             "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
@@ -734,7 +805,7 @@
                 },
                 "value": {
                   "type": "number",
-                  "example": 90
+                  "example": 500
                 },
                 "accountId": {
                   "type": "number",
@@ -748,12 +819,13 @@
                   "type": "string",
                   "example": "EXPENSE"
                 }
-              },
-              "xml": {
-                "name": "main"
               }
-            },
-            "description": "OK"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
           }
         },
         "security": [

@@ -39,6 +39,12 @@ export const CostCenterRepository = {
         transactions: { where: { transactionType } }
       },
       where: { userId },
+      orderBy:
+        [
+          { percentage: "desc" },
+          { name: "asc" }
+        ]
+
     });
 
     return data;
