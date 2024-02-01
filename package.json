@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npm run swagger && nodemon src/index.ts",
     "prod": "node ./dist/index.js",
-    "postinstall": "npm run swagger && rm -rf ./dist && tsc",
+    "postinstall": "rm -rf ./dist && npm run swagger && tsc  ",
     "swagger": "ts-node src/configs/swagger/swagger.ts"
   },
   "keywords": [],
