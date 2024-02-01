@@ -9,7 +9,8 @@ import { api } from "./routes/api";
 
 const app = express();
 
-const port = process.env.SERVER_PORT || 3000
+export const port = process.env.SERVER_PORT || 3000
+export const url = process.env.SERVER_URL || "http://localhost"
 
 app.use(express.json())
 app.use(cors({ origin: "*" }))
@@ -27,5 +28,5 @@ app.use("*", ErrorHandler.generics());
 app.use(ErrorHandler.handle());
 
 app.listen(port, () => {
-  console.log(`Running on port http://localhost:${port}`);
+  console.log(`Running on port ${url}:${port}`);
 });

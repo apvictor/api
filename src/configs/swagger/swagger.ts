@@ -1,9 +1,8 @@
+import { port, url } from '../..'
 import swaggerAutogen from 'swagger-autogen'
 
 const outputFile = '../swagger/swagger_output.json'
 const endpointsFiles = ['../../routes/api']
-
-const port = process.env.SERVER_PORT || 8000
 
 const doc = {
   info: {
@@ -12,7 +11,7 @@ const doc = {
     description: '',
     contact: { name: 'Armando Pereira' }
   },
-  host: `localhost:${port}`,
+  host: `${url.split("//")[1]}:${port}`,
   basePath: '/',
   schemes: ['http'],
   consumes: ['application/json'],
