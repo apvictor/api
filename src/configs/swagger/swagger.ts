@@ -4,6 +4,14 @@ import swaggerAutogen from 'swagger-autogen'
 const outputFile = '../swagger/swagger_output.json'
 const endpointsFiles = ['../../routes/api']
 
+let host = ""
+
+if (port != "") {
+  host = `http://localhost:${port}`;
+} else {
+  host = url;
+}
+
 const doc = {
   info: {
     title: 'PIGPAY API Documentation',
@@ -11,7 +19,7 @@ const doc = {
     description: '',
     contact: { name: 'Armando Pereira' }
   },
-  host: `${url.split("//")[1]}:${port}`,
+  host,
   basePath: '/',
   schemes: ['http'],
   consumes: ['application/json'],

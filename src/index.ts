@@ -28,5 +28,5 @@ app.use("*", ErrorHandler.generics());
 app.use(ErrorHandler.handle());
 
 app.listen(port, () => {
-  console.log(`Running on port ${url}:${port}`);
+  console.log(`🚀 Servidor executando`);
 });
