@@ -16,7 +16,6 @@ export const create = MapErrors(async (request: UserAuthRequest, response: Respo
       required: true,
       schema: {
         name: "Nubank",
-        value: 100
       }
     }
   */

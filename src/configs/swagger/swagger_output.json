@@ -185,10 +185,6 @@
                 "name": {
                   "type": "string",
                   "example": "Nubank"
-                },
-                "value": {
-                  "type": "number",
-                  "example": 100
                 }
               }
             }
@@ -230,10 +226,6 @@
                 "name": {
                   "type": "string",
                   "example": "Nubank"
-                },
-                "value": {
-                  "type": "number",
-                  "example": 100
                 }
               }
             }

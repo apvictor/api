@@ -36,29 +36,11 @@ export const AccountRepository = {
   },
   async getAll(userId: number) {
     const data = await PrismaService.accounts.findMany({
-      where: { userId },
+      where: { userId, },
     });
 
     if (!data) throw new NotFoundError();
 
     return data;
-  },
-  async getTotalMonth(userId: number) {
-    const date = new Date();
-    const startMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-    const endMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
-    const { _sum: { value } } = await PrismaService.accounts.aggregate({
-      where: {
-        userId,
-        createdAt: {
-          gte: startMonth,
-          lte: endMonth,
-        }
-      },
-      _sum: { value: true }
-    });
-
-    return value ?? 0;
-  },
+  }
 }

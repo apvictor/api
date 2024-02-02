@@ -22,7 +22,6 @@ export const edit = MapErrors(async (request: UserAuthRequest, response: Respons
       required: true,
       schema: {
         name: "Nubank",
-        value: 100
       }
     }
   */

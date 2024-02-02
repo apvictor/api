@@ -4,7 +4,6 @@ export const AccountValidation = {
   create: object({
     body: object({
       name: string().required(),
-      value: number().required(),
     }),
   }),
   edit: object({
@@ -13,7 +12,6 @@ export const AccountValidation = {
     }),
     body: object({
       name: string().required(),
-      value: number().required(),
     }),
   }),
   delete: object({
