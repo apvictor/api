@@ -1,0 +1,864 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "PIGPAY API Documentation",
+    "version": "1.0.0",
+    "description": "",
+    "contact": {
+      "name": "Armando Pereira"
+    }
+  },
+  "host": "http://localhost:8000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {
+    "apiKeyAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "authorization",
+      "description": "Token Authorization"
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Fazer cadastro",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Armando Pereira"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "a@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "12345678"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Fazer login",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "a@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "12345678"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          }
+        }
+      }
+    },
+    "/accounts": {
+      "get": {
+        "tags": [
+          "Conta"
+        ],
+        "summary": "Listar contas",
+        "description": "",
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Nubank"
+                },
+                "value": {
+                  "type": "number",
+                  "example": 100
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2024-01-24T18:57:20.748Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2024-01-24T18:57:20.748Z"
+                },
+                "deletedAt": {
+                  "type": "string",
+                  "example": ""
+                },
+                "userId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "expenseTotal": {
+                  "type": "number",
+                  "example": 0
+                },
+                "incomeTotal": {
+                  "type": "number",
+                  "example": 0
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Conta"
+        ],
+        "summary": "Criar conta",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Nubank"
+                },
+                "value": {
+                  "type": "number",
+                  "example": 100
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/accounts/{id}": {
+      "put": {
+        "tags": [
+          "Conta"
+        ],
+        "summary": "Editar conta",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Nubank"
+                },
+                "value": {
+                  "type": "number",
+                  "example": 100
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Conta"
+        ],
+        "summary": "Deletar conta",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/cost-centers": {
+      "get": {
+        "tags": [
+          "Centro de Custo"
+        ],
+        "summary": "Listar centros de custo",
+        "description": "",
+        "parameters": [
+          {
+            "name": "transactionType",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "INCOME",
+                "EXPENSE"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "value": {
+                  "type": "number",
+                  "example": 10
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Casa"
+                },
+                "percentage": {
+                  "type": "number",
+                  "example": 50
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2024-01-24T18:57:20.748Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2024-01-24T18:57:20.748Z"
+                },
+                "deletedAt": {
+                  "type": "string",
+                  "example": ""
+                },
+                "userId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "transactions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {}
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Centro de Custo"
+        ],
+        "summary": "Criar centro de custo",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Casa"
+                },
+                "percentage": {
+                  "type": "number",
+                  "example": 50
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/cost-centers/{id}": {
+      "put": {
+        "tags": [
+          "Centro de Custo"
+        ],
+        "summary": "Editar centro de custo",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Casa"
+                },
+                "percentage": {
+                  "type": "number",
+                  "example": 50
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Centro de Custo"
+        ],
+        "summary": "Deletar centro de custo",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/users/me": {
+      "get": {
+        "tags": [
+          "Usuário"
+        ],
+        "summary": "Obter   usuário",
+        "description": "",
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Armando Pereira"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "a@gmail.com"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2024-01-24T18:57:20.748Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2024-01-24T18:57:20.748Z"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "Usuário"
+        ],
+        "summary": "Obter meu usuário",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Armando Pereira"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "a@gmail.com"
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "example": "2024-01-24T18:57:20.748Z"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "example": "2024-01-24T18:57:20.748Z"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/transactions": {
+      "get": {
+        "tags": [
+          "Transação"
+        ],
+        "summary": "Listar transação",
+        "description": "",
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "example": "26/01/2024"
+                  },
+                  "transactions": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "example": 7
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Aluguel"
+                        },
+                        "value": {
+                          "type": "number",
+                          "example": 500
+                        },
+                        "transactionType": {
+                          "type": "string",
+                          "example": "EXPENSE"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2024-01-26T12:09:30.684Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2024-01-26T12:09:30.684Z"
+                        },
+                        "deletedAt": {},
+                        "accountId": {
+                          "type": "number",
+                          "example": 8
+                        },
+                        "costCenterId": {
+                          "type": "number",
+                          "example": 2
+                        },
+                        "account": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number",
+                              "example": 8
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "Nubank"
+                            },
+                            "value": {
+                              "type": "number",
+                              "example": 1000
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "example": "2024-01-26T11:55:19.729Z"
+                            },
+                            "updatedAt": {
+                              "type": "string",
+                              "example": "2024-01-26T12:09:03.773Z"
+                            },
+                            "deletedAt": {},
+                            "userId": {
+                              "type": "number",
+                              "example": 2
+                            }
+                          }
+                        },
+                        "costCenter": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number",
+                              "example": 2
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "Casa"
+                            },
+                            "percentage": {
+                              "type": "number",
+                              "example": 50
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "example": "2024-01-26T11:53:38.340Z"
+                            },
+                            "updatedAt": {
+                              "type": "string",
+                              "example": "2024-01-26T11:53:38.340Z"
+                            },
+                            "deletedAt": {},
+                            "userId": {
+                              "type": "number",
+                              "example": 2
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Transação"
+        ],
+        "summary": "Criar transação",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Aluguel"
+                },
+                "value": {
+                  "type": "number",
+                  "example": 500
+                },
+                "accountId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "costCenterId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "transactionType": {
+                  "type": "string",
+                  "example": "EXPENSE"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/transactions/total": {
+      "get": {
+        "tags": [
+          "Transação"
+        ],
+        "summary": "Listar total da entrada e saída",
+        "description": "",
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "expense": {
+                  "type": "number",
+                  "example": 0
+                },
+                "income": {
+                  "type": "number",
+                  "example": 0
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/transactions/{id}": {
+      "put": {
+        "tags": [
+          "Transação"
+        ],
+        "summary": "Editar transação",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Aluguel"
+                },
+                "value": {
+                  "type": "number",
+                  "example": 500
+                },
+                "accountId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "costCenterId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "transactionType": {
+                  "type": "string",
+                  "example": "EXPENSE"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Transação"
+        ],
+        "summary": "Deletar transação",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    }
+  }
+}
