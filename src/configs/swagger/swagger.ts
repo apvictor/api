@@ -6,7 +6,7 @@ const endpointsFiles = ['../../routes/api']
 
 let host = ""
 
-if (port != "") {
+if (url != "") {
   host = `http://localhost:${port}`;
 } else {
   host = url;
