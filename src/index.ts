@@ -1,9 +1,10 @@
 import "dotenv/config";
 import cors from "cors";
-import { serve, setup } from "swagger-ui-express";
 import express, { Request, Response } from "express";
 import { ErrorHandler } from "./configs/errors/ErrorHandler";
-import swaggerFile from "./configs/swagger/swagger_output.json";
+
+// import { serve, setup } from "swagger-ui-express";
+// import swaggerFile from "./configs/swagger/swagger_output.json";
 
 import { api } from "./routes/api";
 
@@ -15,11 +16,11 @@ export const url = process.env.SERVER_URL || "http://localhost"
 app.use(express.json())
 app.use(cors({ origin: "*" }))
 
-app.get("/", (request: Request, response: Response) => {
-  return response.redirect("/swagger");
-});
+// app.get("/", (request: Request, response: Response) => {
+//   return response.redirect("/swagger");
+// });
 
-app.use("/swagger", serve, setup(swaggerFile));
+// app.use("/swagger", serve, setup(swaggerFile));
 
 app.use(api);
 
