@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run swagger && nodemon src/index.ts",
+    "dev": "nodemon src/index.ts",
     "prod": "node ./dist/index.js",
     "postinstall": "rm -rf ./dist && tsc  ",
     "swagger": "ts-node src/configs/swagger/swagger.ts"
