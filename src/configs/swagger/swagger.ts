@@ -1,3 +1,4 @@
+import { exit } from 'process'
 import { port, url } from '../..'
 import swaggerAutogen from 'swagger-autogen'
 
@@ -34,4 +35,4 @@ const doc = {
   }
 }
 
-swaggerAutogen({ language: 'pt-BR' })(outputFile, endpointsFiles, doc)
+swaggerAutogen({ language: 'pt-BR' })(outputFile, endpointsFiles, doc).then(() => exit())
