@@ -8,9 +8,9 @@ const endpointsFiles = ['../../routes/api']
 let host = ""
 
 if (url != "") {
-  host = `${url.split("//")[1]}:${port}`;
-} else {
   host = url.split("//")[1];
+} else {
+  host = `${url.split("//")[1]}:${port}`;
 }
 
 const doc = {
