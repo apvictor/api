@@ -20,8 +20,10 @@ export const getTransactionsTotal = MapErrors(async (request: UserAuthRequest, r
 
   const user = request.userAuth;
 
-  const totalExpense = await TransactionRepository.getTotal(user.id, "EXPENSE");
-  const totalIncome = await TransactionRepository.getTotal(user.id, "INCOME");
+  const month = request.query.month;
+
+  const totalIncome = await TransactionRepository.getTotal(user.id, "INCOME", month);
+  const totalExpense = await TransactionRepository.getTotal(user.id, "EXPENSE", month);
 
   return response.json({ expense: totalExpense, income: totalIncome });
 });

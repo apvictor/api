@@ -29,59 +29,79 @@ export const TransactionRepository = {
 
     return data;
   },
-  async getAll(userId: number, search?: string, transactionType?: TransactionTypeEnum) {
-    const data = await PrismaService.transactions.findMany({
-      include: {
-        account: true,
-        costCenter: true
-      },
-      orderBy: { createdAt: "desc" },
-      where: {
-        account: { userId },
-        name: { contains: search },
-        transactionType
-      },
-    });
+  async getAll(userId: number, month?: string, search?: string, transactionType?: TransactionTypeEnum) {
+    if (month) {
+      let [ano, mes] = month?.split("-");
 
-    return data;
+      const date = new Date(Number(ano), Number(mes) - 1);
+      const startMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+      const endMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+      const data = await PrismaService.transactions.findMany({
+        include: {
+          account: true,
+          costCenter: true
+        },
+        orderBy: { createdAt: "desc" },
+        where: {
+          account: { userId },
+          name: { contains: search },
+          transactionType,
+          createdAt: {
+            gte: startMonth,
+            lte: endMonth,
+          }
+        },
+      });
+
+      return data;
+    }
   },
-  async getTotal(userId: number, transactionType: "EXPENSE" | "INCOME") {
-    const date = new Date();
-    const startMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-    const endMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  async getTotal(userId: number, transactionType: "EXPENSE" | "INCOME", month?: string) {
+    if (month) {
+      let [ano, mes] = month?.split("-");
 
-    const { _sum: { value } } = await PrismaService.transactions.aggregate({
-      _sum: { value: true },
-      where: {
-        account: { userId },
-        transactionType,
-        createdAt: {
-          gte: startMonth,
-          lte: endMonth,
-        }
-      },
-    });
+      const date = new Date(Number(ano), Number(mes) - 1);
+      const startMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+      const endMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-    return value ?? 0;
+      const { _sum: { value } } = await PrismaService.transactions.aggregate({
+        _sum: { value: true },
+        where: {
+          account: { userId },
+          transactionType,
+          createdAt: {
+            gte: startMonth,
+            lte: endMonth,
+          }
+        },
+      });
+
+      return value ?? 0;
+    }
   },
-  async getTotalByAccountId(accountId: number, transactionType: "EXPENSE" | "INCOME") {
-    const date = new Date();
-    const startMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-    const endMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  async getTotalByAccountId(accountId: number, transactionType: "EXPENSE" | "INCOME", month?: string) {
+    if (month) {
+      let [ano, mes] = month?.split("-");
 
-    const { _sum: { value } } = await PrismaService.transactions.aggregate({
-      _sum: { value: true },
-      where: {
-        accountId,
-        transactionType,
-        createdAt: {
-          gte: startMonth,
-          lte: endMonth,
-        }
-      },
-    });
+      const date = new Date(Number(ano), Number(mes) - 1);
+      const startMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+      const endMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-    return value ?? 0;
+      const { _sum: { value } } = await PrismaService.transactions.aggregate({
+        _sum: { value: true },
+        where: {
+          accountId,
+          transactionType,
+          createdAt: {
+            gte: startMonth,
+            lte: endMonth,
+          }
+        },
+      });
+
+      return value ?? 0;
+    }
   },
 
 

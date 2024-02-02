@@ -56,12 +56,13 @@ export const getTransactions = MapErrors(async (request: UserAuthRequest, respon
   */
 
   const user = request.userAuth;
+  const month = request.query.month;
   const search = request.query.search;
   const transactionType = request.query.transactionType;
 
-  const transactions = await TransactionRepository.getAll(user.id, search, transactionType);
+  const transactions = await TransactionRepository.getAll(user.id, month, search, transactionType,);
 
-  const groupedTransactions = transactions.reduce((result: any, transaction: TransactionModel) => {
+  const groupedTransactions = transactions?.reduce((result: any, transaction: TransactionModel) => {
 
     const dateKey = transaction.createdAt.toLocaleDateString('pt-BR', {
       day: '2-digit',

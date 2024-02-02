@@ -33,21 +33,36 @@ export const CostCenterRepository = {
 
     return percentage ?? 0;
   },
-  async getAll(userId: number, transactionType?: "EXPENSE" | "INCOME") {
-    const data: CostCenterModel[] = await PrismaService.costCenters.findMany({
-      include: {
-        transactions: { where: { transactionType } }
-      },
-      where: { userId },
-      orderBy:
-        [
-          { percentage: "desc" },
-          { name: "asc" }
-        ]
+  async getAll(userId: number, transactionType?: "EXPENSE" | "INCOME", month?: string) {
+    if (month) {
+      let [ano, mes] = month?.split("-");
 
-    });
+      const date = new Date(Number(ano), Number(mes) - 1);
+      const startMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+      const endMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-    return data;
+      const data: CostCenterModel[] = await PrismaService.costCenters.findMany({
+        include: {
+          transactions: {
+            where: {
+              transactionType, createdAt: {
+                gte: startMonth,
+                lte: endMonth,
+              }
+            }
+          }
+        },
+        where: { userId },
+        orderBy:
+          [
+            { percentage: "desc" },
+            { name: "asc" }
+          ]
+
+      });
+
+      return data;
+    }
   },
   async getById(id: number) {
     const data = await PrismaService.costCenters.findUnique({

@@ -40,10 +40,11 @@ export const getCostCenters = MapErrors(async (request: UserAuthRequest, respons
 
   const user = request.userAuth;
   const filters = request.query.transactionType;
+  const month = request.query.month;
 
-  const data = await CostCenterRepository.getAll(user.id, filters);
+  const data = await CostCenterRepository.getAll(user.id, filters, month);
 
-  const dto = data.map((item) => calculateTotalValue(item));
+  const dto = data?.map((item) => calculateTotalValue(item));
 
   return response.json(dto);
 });
