@@ -1,7 +1,7 @@
 import { TransactionTypeEnum } from '@prisma/client';
+import { NotFoundError } from '../../configs/errors/ApiError';
 import { PrismaService } from '../../shared/services/PrismaService';
 import { CreateTransactionModel, UpdateTransactionModel } from './../models/TransactionModel';
-import { NotFoundError } from '../../configs/errors/ApiError';
 
 export const TransactionRepository = {
   async delete(id: number) {
