@@ -4,14 +4,21 @@ import { CreateAccountModel, UpdateAccountModel } from './../models/AccountModel
 
 export const AccountRepository = {
   async insert(account: CreateAccountModel) {
-    const data = await PrismaService.accounts.create({ data: account });
+    const data = await PrismaService.accounts.create({
+      data: {
+        name: account.name,
+        userId: account.userId
+      }
+    });
 
     return data;
   },
   async update(id: number, account: UpdateAccountModel) {
     const data = await PrismaService.accounts.update({
-      data: account,
-      where: { id }
+      where: { id },
+      data: {
+        name: account.name
+      }
     });
 
     return data;
