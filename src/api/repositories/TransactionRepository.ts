@@ -80,6 +80,30 @@ export const TransactionRepository = {
       return value ?? 0;
     }
   },
+  async getTotalPaidAndNotPaid(userId: number, paid: boolean, month?: string) {
+    if (month) {
+      let [ano, mes] = month?.split("-");
+
+      const date = new Date(Number(ano), Number(mes) - 1);
+      const startMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+      const endMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+      const { _sum: { value } } = await PrismaService.transactions.aggregate({
+        _sum: { value: true },
+        where: {
+          account: { userId },
+          paid,
+          transactionType: "EXPENSE",
+          createdAt: {
+            gte: startMonth,
+            lte: endMonth,
+          }
+        },
+      });
+
+      return value ?? 0;
+    }
+  },
   async getTotalByAccountId(accountId: number, transactionType: "EXPENSE" | "INCOME", month?: string) {
     if (month) {
       let [ano, mes] = month?.split("-");

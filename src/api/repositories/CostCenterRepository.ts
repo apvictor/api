@@ -38,7 +38,7 @@ export const CostCenterRepository = {
     let lte = new Date()
 
     if (month) {
-      let [ano, mes] = month?.split("-");
+      let [ano, mes] = month.split("-");
 
       const date = new Date(Number(ano), Number(mes) - 1);
       gte = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -50,7 +50,8 @@ export const CostCenterRepository = {
       include: {
         transactions: {
           where: {
-            transactionType, createdAt: {
+            transactionType,
+            createdAt: {
               gte,
               lte,
             }

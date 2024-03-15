@@ -1,19 +1,18 @@
-version: "3.9"
+version: '3.9'
 
 services:
   postgres:
-    container_name: postgres
-    image: postgres:latest
-    hostname: postgres
+    container_name: pigpay_postgres
+    image: bitnami/postgresql:latest
     ports:
-      - 5432:5432
+      - ${DATABASE_PORT}:${DATABASE_PORT}
     environment:
-      DATABASE_NAME: ${DATABASE_NAME}
+      POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASS}
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - edutech_pg_data:/bitnami/postgresql
     restart: unless-stopped
 
 volumes:
-  postgres-data:
+  edutech_pg_data:
