@@ -6,7 +6,7 @@ export const AccountRepository = {
     const data = await PrismaService.accounts.create({
       data: {
         name: account.name,
-        userId: account.userId
+        userId: account.userId,
       }
     });
 

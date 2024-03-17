@@ -22,8 +22,11 @@ export const getTransactionsTotal = MapErrors(async (request: UserAuthRequest, r
 
   const month = request.query.month;
 
-  const totalIncome = await TransactionRepository.getTotal(user.id, "INCOME", month);
-  const totalExpense = await TransactionRepository.getTotal(user.id, "EXPENSE", month);
+  const totalIncome = await TransactionRepository.getTotal(user.id, "INCOME");
+  const totalExpense = await TransactionRepository.getTotal(user.id, "EXPENSE");
 
-  return response.json({ expense: totalExpense, income: totalIncome });
+  const income = await TransactionRepository.getTotal(user.id, "INCOME", month);
+  const expense = await TransactionRepository.getTotal(user.id, "EXPENSE", month);
+
+  return response.json({ expense, totalExpense, income, totalIncome });
 });
