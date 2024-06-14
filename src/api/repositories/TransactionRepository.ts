@@ -29,7 +29,7 @@ export const TransactionRepository = {
 
     return data;
   },
-  async getAll(userId: number, month?: string, search?: string, transactionType?: TransactionTypeEnum) {
+  async getAll(userId: number, month?: string, search?: string, type?: TransactionTypeEnum) {
     if (month) {
       let [ano, mes] = month?.split("-");
 
@@ -40,13 +40,12 @@ export const TransactionRepository = {
       const data = await PrismaService.transactions.findMany({
         include: {
           account: true,
-          costCenter: true
         },
         orderBy: { createdAt: "desc" },
         where: {
           account: { userId },
           name: { contains: search },
-          transactionType,
+          type,
           createdAt: {
             gte: startMonth,
             lte: endMonth,
@@ -57,7 +56,7 @@ export const TransactionRepository = {
       return data;
     }
   },
-  async getTotal(userId: number, transactionType: "EXPENSE" | "INCOME", month?: string) {
+  async getTotal(userId: number, type: "EXPENSE" | "INCOME", month?: string) {
     if (month) {
       let [ano, mes] = month?.split("-");
 
@@ -69,7 +68,7 @@ export const TransactionRepository = {
         _sum: { value: true },
         where: {
           account: { userId },
-          transactionType,
+          type,
           createdAt: {
             gte: startMonth,
             lte: endMonth,
@@ -83,13 +82,13 @@ export const TransactionRepository = {
       _sum: { value: true },
       where: {
         account: { userId },
-        transactionType,
+        type,
       },
     });
 
     return value ?? 0;
   },
-  async getTotalByAccountId(accountId: number, transactionType: "EXPENSE" | "INCOME", month?: string) {
+  async getTotalByAccountId(accountId: number, type: "EXPENSE" | "INCOME", month?: string) {
     if (month) {
       let [ano, mes] = month?.split("-");
 
@@ -101,7 +100,7 @@ export const TransactionRepository = {
         _sum: { value: true },
         where: {
           accountId,
-          transactionType,
+          type,
           createdAt: {
             gte: startMonth,
             lte: endMonth,
@@ -116,7 +115,7 @@ export const TransactionRepository = {
       _sum: { value: true },
       where: {
         accountId,
-        transactionType,
+        type,
       },
     });
 

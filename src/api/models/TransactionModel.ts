@@ -3,8 +3,7 @@ export interface TransactionModel {
   name: string;
   value: number;
   accountId: number;
-  costCenterId: number | null;
-  transactionType: "INCOME" | "EXPENSE";
+  type: "INCOME" | "EXPENSE";
   createdAt: Date;
   updatedAt: Date;
 }
@@ -13,14 +12,13 @@ export interface CreateTransactionModel {
   name: string;
   value: number;
   accountId: number;
-  costCenterId: number | null;
-  transactionType: "INCOME" | "EXPENSE";
+  type: "INCOME" | "EXPENSE";
+  paid: boolean;
 }
 
 export interface UpdateTransactionModel {
   name: string;
   value: number;
   accountId: number;
-  costCenterId: number | null;
-  transactionType: "INCOME" | "EXPENSE";
+  type: "INCOME" | "EXPENSE";
 }

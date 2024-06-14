@@ -4,7 +4,7 @@ import { UserDTO } from "../../api/models/UserModel";
 export interface UserAuthRequest extends Request {
   userAuth: UserDTO,
   query: {
-    transactionType?: "INCOME" | "EXPENSE",
+    type?: "INCOME" | "EXPENSE",
     search?: string
     month?: string
   },

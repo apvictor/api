@@ -24,12 +24,11 @@ export const getTransactions = MapErrors(async (request: UserAuthRequest, respon
               "id": 7,
               "name": "Aluguel",
               "value": 500,
-              "transactionType": "EXPENSE",
+              "type": "EXPENSE",
               "createdAt": "2024-01-26T12:09:30.684Z",
               "updatedAt": "2024-01-26T12:09:30.684Z",
               "deletedAt": null,
               "accountId": 8,
-              "costCenterId": 2,
               "account": {
                 "id": 8,
                 "name": "Nubank",
@@ -39,15 +38,6 @@ export const getTransactions = MapErrors(async (request: UserAuthRequest, respon
                 "deletedAt": null,
                 "userId": 2
               },
-              "costCenter": {
-                "id": 2,
-                "name": "Casa",
-                "percentage": 50,
-                "createdAt": "2024-01-26T11:53:38.340Z",
-                "updatedAt": "2024-01-26T11:53:38.340Z",
-                "deletedAt": null,
-                "userId": 2
-              }
             }
           ]
         }
@@ -58,9 +48,9 @@ export const getTransactions = MapErrors(async (request: UserAuthRequest, respon
   const user = request.userAuth;
   const month = request.query.month;
   const search = request.query.search;
-  const transactionType = request.query.transactionType;
+  const type = request.query.type;
 
-  const transactions = await TransactionRepository.getAll(user.id, month, search, transactionType,);
+  const transactions = await TransactionRepository.getAll(user.id, month, search, type);
 
   const groupedTransactions = transactions?.reduce((result: any, transaction: TransactionModel) => {
 

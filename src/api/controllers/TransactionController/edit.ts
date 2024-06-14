@@ -3,7 +3,6 @@ import { MapErrors } from "../../../configs/errors/MapErrors";
 import { CreateTransactionModel } from "../../models/TransactionModel";
 import { AccountRepository } from "../../repositories/AccountRepository";
 import { UserAuthRequest } from "../../../configs/requests/UserAuthRequest";
-import { CostCenterRepository } from "../../repositories/CostCenterRepository";
 import { TransactionRepository } from "../../repositories/TransactionRepository";
 
 export const edit = MapErrors(async (request: UserAuthRequest, response: Response) => {
@@ -26,8 +25,7 @@ export const edit = MapErrors(async (request: UserAuthRequest, response: Respons
         name: "Aluguel",
         value: 500,
         accountId: 1,
-        costCenterId: 1,
-        transactionType: "EXPENSE"
+        type: "EXPENSE"
       }
     }
   */
@@ -36,12 +34,10 @@ export const edit = MapErrors(async (request: UserAuthRequest, response: Respons
   const transactionData: CreateTransactionModel = request.body
   const id = request.params.id
 
-  const costCenter = transactionData.costCenterId ? (await CostCenterRepository.getById(transactionData.costCenterId)).id : null;
   const account = await AccountRepository.getById(transactionData.accountId);
 
   const data = await TransactionRepository.update(parseInt(id), {
     ...transactionData,
-    costCenterId: costCenter,
     accountId: account.id
   });
 

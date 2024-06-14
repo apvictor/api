@@ -11,8 +11,7 @@ export const TransactionValidation = {
       name: string().required(),
       value: number().required(),
       accountId: number().required(),
-      costCenterId: number().optional(),
-      transactionType: string().oneOf(Object.values(TransactionTypeEnum)).required(),
+      type: string().oneOf(Object.values(TransactionTypeEnum)).required(),
     }),
   }),
   edit: object({
@@ -23,8 +22,7 @@ export const TransactionValidation = {
       name: string().required(),
       value: number().required(),
       accountId: number().required(),
-      costCenterId: number().optional(),
-      transactionType: string().oneOf(Object.values(TransactionTypeEnum)).required(),
+      type: string().oneOf(Object.values(TransactionTypeEnum)).required(),
     }),
   }),
   delete: object({

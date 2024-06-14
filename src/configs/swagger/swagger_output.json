@@ -268,192 +268,6 @@
         ]
       }
     },
-    "/cost-centers": {
-      "get": {
-        "tags": [
-          "Centro de Custo"
-        ],
-        "summary": "Listar centros de custo",
-        "description": "",
-        "parameters": [
-          {
-            "name": "transactionType",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "INCOME",
-                "EXPENSE"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number",
-                  "example": 1
-                },
-                "value": {
-                  "type": "number",
-                  "example": 10
-                },
-                "name": {
-                  "type": "string",
-                  "example": "Casa"
-                },
-                "percentage": {
-                  "type": "number",
-                  "example": 50
-                },
-                "createdAt": {
-                  "type": "string",
-                  "example": "2024-01-24T18:57:20.748Z"
-                },
-                "updatedAt": {
-                  "type": "string",
-                  "example": "2024-01-24T18:57:20.748Z"
-                },
-                "deletedAt": {
-                  "type": "string",
-                  "example": ""
-                },
-                "userId": {
-                  "type": "number",
-                  "example": 1
-                },
-                "transactions": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {}
-                  }
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            },
-            "description": "OK"
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "Centro de Custo"
-        ],
-        "summary": "Criar centro de custo",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "Casa"
-                },
-                "percentage": {
-                  "type": "number",
-                  "example": 50
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      }
-    },
-    "/cost-centers/{id}": {
-      "put": {
-        "tags": [
-          "Centro de Custo"
-        ],
-        "summary": "Editar centro de custo",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "Casa"
-                },
-                "percentage": {
-                  "type": "number",
-                  "example": 50
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      },
-      "delete": {
-        "tags": [
-          "Centro de Custo"
-        ],
-        "summary": "Deletar centro de custo",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      }
-    },
     "/users/me": {
       "get": {
         "tags": [
@@ -586,7 +400,7 @@
                           "type": "number",
                           "example": 500
                         },
-                        "transactionType": {
+                        "type": {
                           "type": "string",
                           "example": "EXPENSE"
                         },
@@ -602,10 +416,6 @@
                         "accountId": {
                           "type": "number",
                           "example": 8
-                        },
-                        "costCenterId": {
-                          "type": "number",
-                          "example": 2
                         },
                         "account": {
                           "type": "object",
@@ -629,36 +439,6 @@
                             "updatedAt": {
                               "type": "string",
                               "example": "2024-01-26T12:09:03.773Z"
-                            },
-                            "deletedAt": {},
-                            "userId": {
-                              "type": "number",
-                              "example": 2
-                            }
-                          }
-                        },
-                        "costCenter": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "number",
-                              "example": 2
-                            },
-                            "name": {
-                              "type": "string",
-                              "example": "Casa"
-                            },
-                            "percentage": {
-                              "type": "number",
-                              "example": 50
-                            },
-                            "createdAt": {
-                              "type": "string",
-                              "example": "2024-01-26T11:53:38.340Z"
-                            },
-                            "updatedAt": {
-                              "type": "string",
-                              "example": "2024-01-26T11:53:38.340Z"
                             },
                             "deletedAt": {},
                             "userId": {
@@ -711,11 +491,7 @@
                   "type": "number",
                   "example": 1
                 },
-                "costCenterId": {
-                  "type": "number",
-                  "example": 1
-                },
-                "transactionType": {
+                "type": {
                   "type": "string",
                   "example": "EXPENSE"
                 }
@@ -803,11 +579,7 @@
                   "type": "number",
                   "example": 1
                 },
-                "costCenterId": {
-                  "type": "number",
-                  "example": 1
-                },
-                "transactionType": {
+                "type": {
                   "type": "string",
                   "example": "EXPENSE"
                 }

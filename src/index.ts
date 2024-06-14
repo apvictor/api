@@ -1,4 +1,3 @@
-import "dotenv/config";
 import cors from "cors";
 import express, { Request, Response } from "express";
 import { ErrorHandler } from "./configs/errors/ErrorHandler";
