@@ -22,11 +22,17 @@ export const getTransactionsTotal = MapErrors(async (request: UserAuthRequest, r
 
   const month = request.query.month;
 
-  const totalIncome = await TransactionRepository.getTotal(user.id, "INCOME");
-  const totalExpense = await TransactionRepository.getTotal(user.id, "EXPENSE");
+  const totalIncome = await TransactionRepository.getTotal(user.id, "INCOME", month, true);
+  const totalExpense = await TransactionRepository.getTotal(user.id, "EXPENSE", month, true);
 
-  const income = await TransactionRepository.getTotal(user.id, "INCOME", month);
-  const expense = await TransactionRepository.getTotal(user.id, "EXPENSE", month);
+  const income = await TransactionRepository.getTotal(user.id, "INCOME", month, true);
+  const expense = await TransactionRepository.getTotal(user.id, "EXPENSE", month, true);
 
-  return response.json({ expense, totalExpense, income, totalIncome });
+  const prevIncome = await TransactionRepository.getTotal(user.id, "INCOME", month, false);
+  const prevExpense = await TransactionRepository.getTotal(user.id, "EXPENSE", month, false);
+
+  const totalPrevIncome = await TransactionRepository.getTotal(user.id, "INCOME", month, false);
+  const totalPrevExpense = await TransactionRepository.getTotal(user.id, "EXPENSE", month, false);
+
+  return response.json({ expense, totalExpense, prevExpense, income, totalIncome, prevIncome, totalPrevIncome, totalPrevExpense });
 });

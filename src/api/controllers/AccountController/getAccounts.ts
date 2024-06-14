@@ -33,8 +33,8 @@ export const getAccounts = MapErrors(async (request: UserAuthRequest, response: 
   const data: AccountModel[] = await AccountRepository.getAll(user.id);
 
   await Promise.all(data.map(async (item) => {
-    item.incomeTotal = await TransactionRepository.getTotalByAccountId(item.id, "INCOME");
-    item.expenseTotal = await TransactionRepository.getTotalByAccountId(item.id, "EXPENSE");
+    item.incomeTotal = await TransactionRepository.getTotalByAccountId(item.id, "INCOME", month, true);
+    item.expenseTotal = await TransactionRepository.getTotalByAccountId(item.id, "EXPENSE", month, true);
   }));
 
   return response.json(data);

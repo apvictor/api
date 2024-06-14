@@ -56,7 +56,7 @@ export const TransactionRepository = {
       return data;
     }
   },
-  async getTotal(userId: number, type: "EXPENSE" | "INCOME", month?: string) {
+  async getTotal(userId: number, type: "EXPENSE" | "INCOME", month?: string, paid?: boolean) {
     if (month) {
       let [ano, mes] = month?.split("-");
 
@@ -69,6 +69,7 @@ export const TransactionRepository = {
         where: {
           account: { userId },
           type,
+          paid,
           createdAt: {
             gte: startMonth,
             lte: endMonth,
@@ -82,13 +83,14 @@ export const TransactionRepository = {
       _sum: { value: true },
       where: {
         account: { userId },
+        paid: true,
         type,
       },
     });
 
     return value ?? 0;
   },
-  async getTotalByAccountId(accountId: number, type: "EXPENSE" | "INCOME", month?: string) {
+  async getTotalByAccountId(accountId: number, type: "EXPENSE" | "INCOME", month?: string, paid?: boolean) {
     if (month) {
       let [ano, mes] = month?.split("-");
 
@@ -101,6 +103,7 @@ export const TransactionRepository = {
         where: {
           accountId,
           type,
+          paid,
           createdAt: {
             gte: startMonth,
             lte: endMonth,
